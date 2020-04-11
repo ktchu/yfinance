@@ -282,8 +282,16 @@ class TickerBase():
         # holders
         holders_url = '/'.join([ticker_url, "holders"])
         holders = _pd.read_html(holders_url)
-        self._major_holders = holders[0]
-        self._institutional_holders = holders[1]
+        self._holders_distribution = holders[0]
+        try:
+            self._major_holders = holders[1]
+        except:
+            self._major_holders = _pd.DataFrame()
+        try:
+            self._institutional_holders = holders[2]
+        except:
+            self._institutional_holders = _pd.DataFrame()
+
         if 'Date Reported' in self._institutional_holders:
             self._institutional_holders['Date Reported'] = _pd.to_datetime(
                 self._institutional_holders['Date Reported'])
