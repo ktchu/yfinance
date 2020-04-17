@@ -36,7 +36,7 @@ except ImportError:
 
 # --- Constants
 
-_YF_REQUEST_TIMEOUT = 1  # Unit: seconds
+_REQUEST_TIMEOUT = 1  # Unit: seconds
 
 
 # --- Public functions
@@ -51,11 +51,11 @@ def empty_df(index=[]):
 
 def get_json(url, proxy=None):
     html = _requests.get(url=url, proxies=proxy,
-                         timeout=_YF_REQUEST_TIMEOUT).text
+                         timeout=_REQUEST_TIMEOUT).text
 
     if "QuoteSummaryStore" not in html:
         html = _requests.get(url=url, proxies=proxy,
-                             timeout=_YF_REQUEST_TIMEOUT).text
+                             timeout=_REQUEST_TIMEOUT).text
         if "QuoteSummaryStore" not in html:
             return {}
 

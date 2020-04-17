@@ -33,6 +33,9 @@ from collections import namedtuple as _namedtuple
 
 from .base import TickerBase
 
+# Constants
+
+_REQUESTS_TIMEOUT = 1
 
 class Ticker(TickerBase):
 
@@ -53,7 +56,8 @@ class Ticker(TickerBase):
                 proxy = proxy["https"]
             proxy = {"https": proxy}
 
-        r = _requests.get(url=url, proxies=proxy).json()
+        r = _requests.get(url=url, proxies=proxy,
+                          timeout=_REQUESTS_TIMEOUT).json()
         if r['optionChain']['result']:
             for exp in r['optionChain']['result'][0]['expirationDates']:
                 self._expirations[_datetime.datetime.fromtimestamp(
